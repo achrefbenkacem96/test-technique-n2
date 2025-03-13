@@ -1,0 +1,43 @@
+ /* Custom table styles */
+::ng-deep .p-datatable {
+    .p-datatable-thead > tr > th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .p-datatable-tbody > tr > td {
+        vertical-align: middle;
+    }
+
+    .p-progressbar {
+        height: 6px;
+    }
+}
+
+/* Responsive design */
+@media screen and (max-width: 960px) {
+    ::ng-deep .p-datatable {
+        .p-datatable-thead > tr > th,
+        .p-datatable-tfoot > tr > td {
+            display: none !important;
+        }
+
+        .p-datatable-tbody > tr > td {
+            text-align: left;
+            display: block;
+            width: 100%;
+            border: none;
+
+            .p-column-title {
+                font-weight: 600;
+                display: inline-block;
+                min-width: 100px;
+            }
+        }
+
+        .p-datatable-tbody > tr > td:last-child {
+            border-bottom: 1px solid #dee2e6;
+        }
+    }
+}

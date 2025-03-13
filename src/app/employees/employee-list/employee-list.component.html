@@ -1,0 +1,100 @@
+<div class="surface-card p-4 border-round-lg shadow-2">
+
+
+  <!-- Table Section -->
+  <div class="overflow-x-auto">
+    <p-table
+      #dt
+      [value]="employees"
+      [paginator]="true"
+      [rows]="rows"
+      [totalRecords]="totalRecords"
+      [globalFilterFields]="['firstName', 'lastName', 'age', 'dob','email', 'salary', 'address', 'contactNumber']"
+      [responsive]="true"
+      styleClass="p-datatable-striped text-sm p-datatable-gridlines"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10,20,50]"
+    >
+    <ng-template pTemplate="caption">
+        <!-- Title and Controls -->
+        <div class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4 gap-3">
+        <div class="flex flex-column md:flex-row align-items-center gap-3">
+          <h2 class="m-0 text-2xl font-medium">Employees List</h2>
+
+          <span class="p-input-icon-left w-full md:w-20rem">
+            <i class="pi pi-search"></i>
+            <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($any($event.target)?.value, 'contains')"
+            placeholder="Search keyword" />
+          </span>
+        </div>
+
+          <!-- Search and Add Button -->
+          <div class="flex flex-column md:flex-row align-items-center gap-3">
+            <button
+              pButton
+              icon="pi pi-plus"
+              label="Add Employee"
+              class="p-button-success w-full md:w-auto"
+              (click)="showAddDialog()"
+            ></button>
+          </div>
+        </div>
+  </ng-template>
+
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th *ngFor="let col of cols" [pSortableColumn]="col.field" style="width:25%">
+            {{col.header}}
+            <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+          <th style="width: 80px">Actions</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-employee>
+        <tr>
+          <td>{{employee.firstName}}</td>
+          <td>{{employee.lastName}}</td>
+          <td>{{employee.age}}</td>
+          <td>
+            <span *ngIf="isValidDate(employee.dob); else noDate">
+              {{ employee.dob | date:'yyyy-MM-dd':'UTC' }}
+
+            </span>
+            <ng-template #noDate><span class="text-color-secondary">N/A</span></ng-template>
+          </td>
+          <td>{{employee.email}}</td>
+          <td>
+            <span *ngIf="isValidSalary(employee.salary); else noSalary">
+              {{ employee.salary  }}
+            </span>
+            <ng-template #noSalary><span class="text-color-secondary">N/A</span></ng-template>
+          </td>
+          <td class="max-width-200 truncate">{{employee.address}}</td>
+          <td>{{employee.contactNumber}}</td>
+          <td>
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-danger p-button-sm"
+              pTooltip="Delete"
+              tooltipPosition="top"
+              (click)="confirmDelete(employee)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="paginatorleft">
+        <span class="p-text-secondary text-sm">Total records: {{totalRecords}}</span>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<p-toast></p-toast>
+<p-confirmDialog [style]="{width: '400px'}"></p-confirmDialog>

@@ -1,0 +1,160 @@
+<div class="p-fluid">
+  <form [formGroup]="employeeForm" (ngSubmit)="submit()">
+    <!-- First Name -->
+    <div class="p-field my-3">
+      <label for="firstName">First Name</label>
+      <input
+        id="firstName"
+        type="text"
+        pInputText
+        formControlName="firstName"
+        [ngClass]="{ 'ng-invalid ng-dirty': employeeForm.get('firstName')?.invalid && (employeeForm.get('firstName')?.touched || submitted) }">
+      <small
+        *ngIf="employeeForm.get('firstName')?.errors?.['required'] && (employeeForm.get('firstName')?.touched || submitted)"
+        class="p-error">
+        Required
+      </small>
+    </div>
+
+    <!-- Last Name -->
+    <div class="p-field my-3">
+      <label for="lastName">Last Name</label>
+      <input
+        id="lastName"
+        type="text"
+        pInputText
+        formControlName="lastName"
+        styleClass="small-calendar"
+
+        [ngClass]="{ 'ng-invalid ng-dirty': employeeForm.get('lastName')?.invalid && (employeeForm.get('lastName')?.touched || submitted) }">
+      <small
+        *ngIf="employeeForm.get('lastName')?.errors?.['required'] && (employeeForm.get('lastName')?.touched || submitted)"
+        class="p-error">
+        Required
+      </small>
+    </div>
+
+    <div class="p-grid">
+      <div class="p-field p-col-6 my-3">
+        <label for="dob">Birth Date</label>
+
+        <p-calendar
+        id="dob"
+        formControlName="dob"
+        [showIcon]="true"
+        dateFormat="yy-mm-dd"
+        [maxDate]="maxDate"
+        [defaultDate]="maxDate"
+        [appendTo]="'body'"
+        [ngClass]="{
+          'ng-invalid ng-dirty': employeeForm.get('dob')?.invalid && (employeeForm.get('dob')?.touched || submitted)
+        }">
+      </p-calendar>
+        <small
+          *ngIf="employeeForm.get('dob')?.errors?.['required'] && (employeeForm.get('dob')?.touched || submitted)"
+          class="p-error">
+          Required
+        </small>
+      </div>
+
+      <div class="p-field p-col-6 my-3">
+        <label for="age">Age</label>
+        <input
+          id="age"
+          type="number"
+          pInputText
+          formControlName="age"
+          [disabled]="true">
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="p-field my-3">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        pInputText
+        formControlName="email"
+        [ngClass]="{ 'ng-invalid ng-dirty': employeeForm.get('email')?.invalid && (employeeForm.get('email')?.touched || submitted) }">
+      <small
+        *ngIf="employeeForm.get('email')?.errors?.['required'] && (employeeForm.get('email')?.touched || submitted)"
+        class="p-error">
+        Required
+      </small>
+      <small
+        *ngIf="employeeForm.get('email')?.errors?.['email'] && (employeeForm.get('email')?.touched || submitted)"
+        class="p-error">
+        Invalid email format
+      </small>
+    </div>
+
+    <!-- Salary and Phone -->
+    <div class="p-grid">
+      <div class="p-field p-col-6  my-3">
+        <label for="salary">Salary</label>
+        <input
+          id="salary"
+          type="number"
+          pInputText
+          formControlName="salary"
+          [ngClass]="{ 'ng-invalid ng-dirty': employeeForm.get('salary')?.invalid && (employeeForm.get('salary')?.touched || submitted) }">
+        <small
+          *ngIf="employeeForm.get('salary')?.errors?.['required'] && (employeeForm.get('salary')?.touched || submitted)"
+          class="p-error">
+          Required
+        </small>
+      </div>
+
+      <div class="p-field p-col-6  my-3">
+        <label for="contactNumber">Phone</label>
+        <input
+          id="contactNumber"
+          type="number"
+          pInputText
+          formControlName="contactNumber"
+          [ngClass]="{ 'ng-dirty ng-invalid': employeeForm.get('contactNumber')?.invalid && employeeForm.touched }">
+        <small *ngIf="employeeForm.get('contactNumber')?.errors?.['required'] && (employeeForm.get('contactNumber')?.touched || submitted)" class="p-error">Required</small>
+      </div>
+    </div>
+
+    <div class="p-field my-3">
+      <label for="address">Address</label>
+      <textarea
+        id="address"
+        rows="5"
+        cols="57"
+        pInputTextarea
+        formControlName="address"
+        [ngClass]="{ 'ng-invalid ng-dirty': employeeForm.get('address')?.invalid && employeeForm.touched }"></textarea>
+      <small *ngIf="employeeForm.get('address')?.errors?.['required'] && (employeeForm.get('address')?.touched || submitted)" class="p-error">Required</small>
+    </div>
+
+    <div class="flex flex-wrap gap-2  my-3 justify-content-between"  >
+      <div>
+        <button
+          pButton
+          type="button"
+          severity="danger"
+          label="Cancel"
+          class="p-button-danger"
+          icon="pi pi-times"
+          (click)="ref.close()">
+        </button>
+      </div>
+      <div>
+        <button
+          pButton
+          type="submit"
+          label="Save"
+          class="p-button-success"
+          icon="pi pi-check"
+          [disabled]="employeeForm.invalid">
+        </button>
+      </div>
+
+    </div>
+
+
+  </form>
+</div>

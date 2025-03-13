@@ -1,0 +1,5 @@
+
+.p-datepicker {
+  min-height: 250px !important; 
+  z-index: 1000 !important;
+}
